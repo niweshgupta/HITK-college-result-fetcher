@@ -15,14 +15,21 @@ print "Enter your choice : "
 print "1. Get Results sorted alphabetically"
 print "2. Get Results sorted rankwise"
 choice = int(input())
-for x in range(int(start), int(end)) :
+for x in range(int(start), int(end) + 1) :
 	r = requests.post("http://61.12.70.61:8084/heresult17.aspx", data={'roll': x, 'sem': sem})
 	string = r.text
 	if string == "No such student exists in this database" :
 		continue
 	name = get_data(string, "<span id=\"lblname\">Name  ")
 	roll = get_data(string, "<span id=\"lblroll\">Roll No.  ")
-	SGPA = get_data(string, "<span id=\"lblbottom2\">SGPA       EVEN(2nd.) SEMESTER: ")
+	if sem == 2:
+		SGPA = get_data(string, "<span id=\"lblbottom2\">SGPA       EVEN(2nd.) SEMESTER: ")
+	elif sem == 4:
+		SGPA = get_data(string, "<span id=\"lblbottom2\">SGPA       EVEN(4th.) SEMESTER: ")
+	elif sem == 6 :
+		SGPA = get_data(string, "<span id=\"lblbottom2\">SGPA       EVEN(6th.) SEMESTER: ")
+	else :
+		SGPA = get_data(string, "<span id=\"lblbottom2\">SGPA       EVEN(8th.) SEMESTER: ")
 	name = name.encode('ascii', 'ignore').decode('ascii')
 	if choice == 1 :
 		f1.write(" ".join([roll, name, SGPA, '\n']))
