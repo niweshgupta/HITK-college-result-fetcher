@@ -1,4 +1,5 @@
-import os,requests
+import os,requests          #first install the requests in the system
+
 
 def get_data(haystack, needle):
 	a = haystack.split(needle)
